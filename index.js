@@ -1,11 +1,21 @@
 window.addEventListener('load' , function(){
     const saveBtn = document.getElementById('save')
     const deleteBtn = document.getElementById('delete')
+    const deleteAllBtn = document.getElementById('deleteAll')
     const list = document.getElementById('list')
     const date = document.getElementById('date')
     const note = document.getElementById('note')
 
-    const listContent = []
+    if(localStorage.listContent == undefined){
+        localStorage.listContent = JSON.stringify([])
+    }
+    let listContent = JSON.parse(localStorage.listContent)
+
+    function saveToStorage(i){
+        localStorage.listContent = JSON.stringify(i)
+    }
+
+    render(listContent)
 
     function render(listContent){
         let listHtml = ''
@@ -20,6 +30,7 @@ window.addEventListener('load' , function(){
         })
 
         list.innerHTML = listHtml
+        saveToStorage(listContent)
     }
     
     saveBtn.addEventListener('click' , function(){
@@ -53,5 +64,12 @@ window.addEventListener('load' , function(){
         render(listContent)
     })
 
+    deleteAllBtn.addEventListener('click' , function(){
+        if(window.confirm('Are you sure to clear ALL the notes?')){
+            listContent = []
+            saveToStorage(listContent)
+            render(listContent)
+        }
+    })
 })
 

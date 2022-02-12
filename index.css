@@ -17,7 +17,7 @@ input{
     font-family:'Courier New', Courier, monospace;
 }
 
-#delete{
+.delete{
     margin-top: 10px;
     height: 30px;
     width: 100%;
